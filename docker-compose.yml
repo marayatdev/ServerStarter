@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password # เปลี่ยนเป็นรหัสผ่านของ root ที่ปลอดภัย
+      MYSQL_DATABASE: server # เปลี่ยนเป็นชื่อฐานข้อมูลที่ต้องการ
+      MYSQL_USER: user # เปลี่ยนเป็นชื่อผู้ใช้ที่ต้องการ
+      MYSQL_PASSWORD: root # เปลี่ยนเป็นรหัสผ่านผู้ใช้ที่ปลอดภัย
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql 
+    networks:
+      - db_network
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  db_network:
+    driver: bridge
